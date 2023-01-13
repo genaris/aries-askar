@@ -5,7 +5,7 @@
     "paths": {
       "aries-askar-test-shared": ["shared/src"],
       "aries-askar-test-react-native": ["react-native/src"],
-      "aries-askar-test-nodejs": ["nodejs/src"],
+      "aries-askar-test-nodejs": ["nodejs/src"]
     }
   },
   "include": [".eslintrc.js"],
