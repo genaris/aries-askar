@@ -3,11 +3,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "aries-askar-shared": ["shared/src"],
-      "aries-askar-react-native": ["react-native/src"],
-      "aries-askar-nodejs": ["nodejs/src"]
+      "aries-askar-test-shared": ["shared/src"],
+      "aries-askar-test-react-native": ["react-native/src"],
+      "aries-askar-test-nodejs": ["nodejs/src"]
     },
-    "types": ["node"]
   },
   "exclude": ["node_modules", "**/build/**", "build"]
 }

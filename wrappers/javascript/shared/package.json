@@ -19,11 +19,6 @@
     "build"
   ],
   "scripts": {
-    "lint": "eslint .",
-    "check-types": "tsc --noEmit -p tsconfig.build.json",
-    "check-format": "yarn prettier --check",
-    "format": "yarn prettier --write",
-    "prettier": "prettier --ignore-path .gitignore '**/*+(.js|json|ts|md|yml|yaml)'",
     "build": "yarn run clean && yarn run compile",
     "clean": "rimraf -rf ./build",
     "compile": "tsc -p tsconfig.build.json",

@@ -1,17 +1,17 @@
-# aries-askar-react-native
+# aries-askar-test-react-native
 
 React Native wrapper around Aries Askar
 
 ## Installation
 
 ```sh
-npm install aries-askar-react-native
+npm install aries-askar-test-react-native
 ```
 
 ## Usage
 
 ```js
-import { multiply } from 'aries-askar-react-native'
+import { multiply } from 'aries-askar-test-react-native'
 
 // ...
 

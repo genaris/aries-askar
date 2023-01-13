@@ -1,6 +1,6 @@
-import type { AriesAskarErrorObject } from 'aries-askar-shared'
+import type { AriesAskarErrorObject } from 'aries-askar-test-shared'
 
-import { AriesAskarError } from 'aries-askar-shared'
+import { AriesAskarError } from 'aries-askar-test-shared'
 
 import { allocateStringBuffer } from './ffi'
 import { nativeAriesAskar } from './library'

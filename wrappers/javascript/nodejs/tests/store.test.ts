@@ -1,4 +1,4 @@
-import { Store, StoreKeyMethod, Key, KeyAlgs, AriesAskarError, KeyMethod } from 'aries-askar-shared'
+import { Store, StoreKeyMethod, Key, KeyAlgs, AriesAskarError, KeyMethod } from 'aries-askar-test-shared'
 
 import { firstEntry, getRawKey, secondEntry, setup, setupWallet, testStoreUri } from './utils'
 

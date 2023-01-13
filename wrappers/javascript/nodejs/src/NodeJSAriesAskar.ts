@@ -79,7 +79,7 @@ import type {
   EncryptedBuffer,
   AriesAskarErrorObject,
   AeadParamsOptions,
-} from 'aries-askar-shared'
+} from 'aries-askar-test-shared'
 
 import {
   AriesAskarError,
@@ -90,7 +90,7 @@ import {
   AeadParams,
   SessionHandle,
   KeyEntryListHandle,
-} from 'aries-askar-shared'
+} from 'aries-askar-test-shared'
 
 import { handleError } from './error'
 import {

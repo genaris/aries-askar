@@ -1,4 +1,4 @@
-import { Key, KeyAlgs } from 'aries-askar-shared'
+import { Key, KeyAlgs } from 'aries-askar-test-shared'
 
 import { setup } from './utils'
 

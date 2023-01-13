@@ -69,7 +69,7 @@ import type {
   StoreRekeyOptions,
   StoreRemoveOptions,
   StoreRemoveProfileOptions,
-} from 'aries-askar-shared'
+} from 'aries-askar-test-shared'
 
 import {
   AeadParams,
@@ -80,7 +80,7 @@ import {
   SessionHandle,
   ScanHandle,
   KeyEntryListHandle,
-} from 'aries-askar-shared'
+} from 'aries-askar-test-shared'
 
 import { ariesAskarReactNative } from './library'
 import { serializeArguments } from './utils'
