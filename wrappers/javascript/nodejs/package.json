@@ -1,6 +1,6 @@
 {
-  "name": "aries-askar-nodejs",
-  "version": "0.0.0",
+  "name": "aries-askar-test-nodejs",
+  "version": "0.0.1",
   "license": "Apache-2.0",
   "description": "Nodejs wrapper for Aries Askar",
   "source": "src/index",

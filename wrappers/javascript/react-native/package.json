@@ -1,6 +1,6 @@
 {
-  "name": "aries-askar-react-native",
-  "version": "0.0.0",
+  "name": "aries-askar-test-react-native",
+  "version": "0.0.1",
   "license": "Apache-2.0",
   "description": "React Native wrapper for Aries Askar",
   "main": "build/index",
