@@ -143,110 +143,63 @@ jobs:
           name: library-${{ runner.os }}
           path: target/release/${{ matrix.lib }}
 
-  build-native:
-    name: Build (native)
-    needs: [check]
-
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - os: macos-11
-            lib: libaries_askar.dylib
-            target: apple-darwin # creates a universal library
-            toolchain: nightly-2021-10-21 #  beta required for aarch64-apple-darwin target
-          - os: windows-latest
-            lib: aries_askar.dll
-            toolchain: 1.56
-
-    runs-on: ${{ matrix.os }}
+  build-javascript:
+    name: Build and Test JavaScript wrapper
+    needs: [build-manylinux]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: wrappers/javascript
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Install Rust toolchain
-        uses: actions-rs/toolchain@v1
+      - name: Set up Node.JS 16.x
+        uses: actions/setup-node@v3
         with:
-          profile: minimal
-          toolchain: ${{ matrix.toolchain }}
-          override: true
+          node-version: 16.x
 
-      - name: Cache cargo resources
-        uses: Swatinem/rust-cache@v1
+      - name: Fetch library artifacts
+        uses: actions/download-artifact@v2
         with:
-          sharedKey: check
+          name: library-Linux
 
-      - name: Build library
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build JavaScript Wrapper
+        run: yarn build
+
+      - name: Lint JavaScript Wrapper
+        run: yarn lint
+
+      - name: Format Check JavaScript Wrapper
+        run: yarn check-format
+
+      - name: Type Check JavaScript Wrapper
+        run: yarn check-types
+
+      - name: Test JavaScript Wrapper
         env:
-          BUILD_TARGET: ${{ matrix.target }}
-          BUILD_TOOLCHAIN: ${{ matrix.toolchain }}
-          # LIBSQLITE3_FLAGS: SQLITE_DEBUG SQLITE_MEMDEBUG
-        run: sh ./build.sh
+          # binary is downloaded to root of repository
+          LIB_ARIES_ASKAR_PATH: ../../../
+        run: yarn test
 
-      - name: Upload library artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: library-${{ runner.os }}
-          path: target/release/${{ matrix.lib }}
-
-  build-javascript:
-      name: Build and Test JavaScript wrapper
-      needs: [build-manylinux]
-      runs-on: ubuntu-latest
-      defaults:
-        run:
-          working-directory: wrappers/javascript
-
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v3
-
-        - name: Set up Node.JS 16.x
-          uses: actions/setup-node@v3
-          with:
-            node-version: 16.x
-
-        - name: Fetch library artifacts
-          uses: actions/download-artifact@v2
-          with:
-            name: library-linux
-
-        - name: Install dependencies
-          run: yarn install
-
-        - name: Build JavaScript Wrapper
-          run: yarn build
-
-        - name: Lint JavaScript Wrapper
-          run: yarn lint
-
-        - name: Format Check JavaScript Wrapper
-          run: yarn check-format
-
-        - name: Type Check JavaScript Wrapper
-          run: yarn check-types
-
-        - name: Test JavaScript Wrapper
-          env:
-            # binary is downloaded to root of repository
-            LIB_ARIES_ASKAR_PATH: ../../../
-          run: yarn test
-
-        - name: Set NPM config
-          if: |
-            github.event_name == 'release' ||
-            (github.event_name == 'workflow_dispatch' && github.event.inputs.publish-wrappers == 'true')
-          run: |
-            echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
-            echo "registry=https://registry.npmjs.org/" >> .npmrc
-            echo "always-auth=true" >> .npmrc
-        # TODO: this will currently publish the version as defined in the package.json. If the version already
-        # exists on NPM it will skip the publishing. This means if a new version is released, but the version hasn't been
-        # updated in the package.json files yet, it won't publish to NPM (which is kinda nice). We should however add a check
-        # to see if the JS version matches the release version (do we want to keep the js and rust version in sync?)
-        - name: Publish JavaScript Wrapper
-          if: |
-            github.event_name == 'release' ||
-            (github.event_name == 'workflow_dispatch' && github.event.inputs.publish-wrappers == 'true')
-          run: npx lerna publish from-package --no-push --no-private --yes --no-git-tag-version
+      - name: Set NPM config
+        if: |
+          github.event_name == 'release' ||
+          (github.event_name == 'workflow_dispatch' && github.event.inputs.publish-wrappers == 'true')
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
+          echo "registry=https://registry.npmjs.org/" >> .npmrc
+          echo "always-auth=true" >> .npmrc
+      # TODO: this will currently publish the version as defined in the package.json. If the version already
+      # exists on NPM it will skip the publishing. This means if a new version is released, but the version hasn't been
+      # updated in the package.json files yet, it won't publish to NPM (which is kinda nice). We should however add a check
+      # to see if the JS version matches the release version (do we want to keep the js and rust version in sync?)
+      - name: Publish JavaScript Wrapper
+        if: |
+          github.event_name == 'release' ||
+          (github.event_name == 'workflow_dispatch' && github.event.inputs.publish-wrappers == 'true')
+        run: npx lerna publish from-package --no-push --no-private --yes --no-git-tag-version
