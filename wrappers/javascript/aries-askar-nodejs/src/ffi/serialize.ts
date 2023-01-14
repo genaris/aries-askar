@@ -1,9 +1,9 @@
-import type { ByteBufferStruct, SecretBufferStruct } from '../ffi/structures'
+import type { ByteBufferStruct, SecretBufferStruct } from './structures'
 
 import { Key, ArcHandle, StoreHandle, SessionHandle, ScanHandle, Jwk } from 'aries-askar-test-shared'
 import { NULL } from 'ref-napi'
 
-import { uint8arrayToByteBufferStruct } from '../ffi/conversion'
+import { uint8arrayToByteBufferStruct } from './conversion'
 
 export type Callback = (err: number) => void
 export type CallbackWithResponse = (err: number, response: string) => void

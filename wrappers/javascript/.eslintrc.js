@@ -12,9 +12,9 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: [
       './tsconfig.eslint.json',
-      './shared/tsconfig.json',
-      './react-native/tsconfig.json',
-      './nodejs/tsconfig.json',
+      './aries-askar-shared/tsconfig.json',
+      './aries-askar-react-native/tsconfig.json',
+      './aries-askar-nodejs/tsconfig.json',
     ],
   },
   settings: {
@@ -25,11 +25,19 @@ module.exports = {
     'import/resolver': {
       typescript: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        project: ['shared/tsconfig.json', 'react-native/tsconfig.json', 'nodejs/tsconfig.json'],
+        project: [
+          'aries-askar-shared/tsconfig.json',
+          'aries-askar-react-native/tsconfig.json',
+          'aries-askar-nodejs/tsconfig.json',
+        ],
         alwaysTryTypes: true,
       },
       node: {
-        project: ['shared/tsconfig.json', 'react-native/tsconfig.json', 'nodejs/tsconfig.json'],
+        project: [
+          'aries-askar-shared/tsconfig.json',
+          'aries-askar-react-native/tsconfig.json',
+          'aries-askar-nodejs/tsconfig.json',
+        ],
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
     },

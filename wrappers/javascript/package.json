@@ -4,10 +4,9 @@
   "license": "Apache-2.0",
   "workspaces": {
     "packages": [
-      "shared",
-      "react-native",
-      "nodejs",
-      "react-native-example"
+      "aries-askar-shared",
+      "aries-askar-react-native",
+      "aries-askar-nodejs"
     ]
   },
   "scripts": {
