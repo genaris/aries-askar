@@ -236,7 +236,7 @@ jobs:
       - name: Fetch library artifacts
         uses: actions/download-artifact@v2
         with:
-          name: library-linux-x86_64
+          name: library-linux-x64
           path: wrappers/python/aries_askar/
 
       - if: "runner.os == 'Linux'"
@@ -311,7 +311,7 @@ jobs:
       - name: Fetch library artifacts
         uses: actions/download-artifact@v2
         with:
-          name: library-linux-x86_64
+          name: library-linux-x64
 
       - name: Install dependencies
         run: yarn install
