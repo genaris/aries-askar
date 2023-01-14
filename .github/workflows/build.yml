@@ -280,7 +280,7 @@ jobs:
 
   build-javascript:
     name: Build and Test JavaScript wrapper
-    needs: [build-manylinux]
+    needs: [build-release]
     runs-on: ubuntu-latest
     defaults:
       run:
