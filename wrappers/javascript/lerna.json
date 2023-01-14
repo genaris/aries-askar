@@ -1,11 +1,16 @@
 {
-  "packages": ["packages/*"],
-  "version": "0.1.0",
+  "packages": [
+    "packages/*"
+  ],
+  "version": "0.1.0-dev.1",
   "useWorkspaces": true,
   "npmClient": "yarn",
   "command": {
     "version": {
-      "allowBranch": ["main", "feat/*"]
+      "allowBranch": [
+        "main",
+        "feat/*"
+      ]
     }
   }
 }
