@@ -9,6 +9,11 @@ name: "Aries-Askar"
     types: [created]
   workflow_dispatch:
     inputs:
+      publish-binaries:
+        description: 'Publish Binaries to Release (will create a release if no release exists for branch or tag)'
+        required: true
+        default: false
+        type: boolean    
       publish-wrappers:
         description: 'Publish Wrappers to Registries'
         required: true
@@ -167,26 +172,29 @@ jobs:
 
       - name: Create library artifacts directory
         if: |
-          github.event_name == 'release' || 
+          github.event_name == 'release' ||
           (github.event_name == 'workflow_dispatch' && github.event.inputs.publish-binaries == 'true')
         run: |
           mkdir release-artifacts
           cp target/${{ matrix.target }}/release/${{ matrix.lib }} release-artifacts/
       - uses: a7ul/tar-action@v1.1.2
         if: |
+          github.event_name == 'release' ||
+          (github.event_name == 'workflow_dispatch' && github.event.inputs.publish-binaries == 'true')
+        with:
           command: c
           cwd: release-artifacts
           files: .
-          outPath: "library-${{ matrix.arch }}.tar.gz"
+          outPath: 'library-${{ matrix.arch }}.tar.gz'
 
       - name: Add library artifacts to release
         if: |
-          github.event_name == 'release' || 
+          github.event_name == 'release' ||
           (github.event_name == 'workflow_dispatch' && github.event.inputs.publish-binaries == 'true')
         uses: svenstaro/upload-release-action@v2
         with:
           file: library-${{ matrix.arch }}.tar.gz
-          asset_name: "library-${{ matrix.arch }}.tar.gz"
+          asset_name: 'library-${{ matrix.arch }}.tar.gz'
 
   build-py:
     name: Build Python packages
