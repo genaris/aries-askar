@@ -202,12 +202,9 @@ jobs:
 
     strategy:
       matrix:
-        arch: [linux-aarch64, linux-x86_64, darwin-universal, windows-x86_64]
+        arch: [linux-x86_64, darwin-universal, windows-x86_64]
         python-version: ["3.8"]
         include:
-          - os: ubuntu-latest
-            arch: linux-aarch64
-            plat-name: manylinux2014_aarch64
           - os: ubuntu-latest
             arch: linux-x86_64
             plat-name: manylinux2014_x86_64
