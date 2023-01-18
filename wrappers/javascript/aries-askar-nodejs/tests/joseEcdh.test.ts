@@ -2,8 +2,25 @@ import { Ecdh1PU, EcdhEs, Jwk, Key, KeyAlgs } from 'aries-askar-test-shared'
 
 import { base64url, setup } from './utils'
 
+import v8Profiler from 'v8-profiler-next'
+import fs from 'fs'
+
+v8Profiler.setGenerateType(1)
+const title = 'joseecdh-test'
+
+
 describe('jose ecdh', () => {
   beforeAll(() => setup())
+
+  v8Profiler.startProfiling(title, true)
+
+  afterAll(() => {
+    const profile = v8Profiler.stopProfiling(title)
+    profile.export(function (error, result: any) {
+      fs.writeFileSync(`${title}.cpuprofile`, result)
+      profile.delete()
+    })
+  })
 
   test('ecdh es direct', () => {
     const bobKey = Key.generate(KeyAlgs.EcSecp256r1)

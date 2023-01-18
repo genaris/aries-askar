@@ -2,8 +2,25 @@ import { Store, StoreKeyMethod, Key, KeyAlgs, AriesAskarError, KeyMethod } from 
 
 import { firstEntry, getRawKey, secondEntry, setup, setupWallet, testStoreUri } from './utils'
 
+import v8Profiler from 'v8-profiler-next'
+import fs from 'fs'
+
+v8Profiler.setGenerateType(1)
+const title = 'store-test'
+
 describe('Store and Session', () => {
   let store: Store
+
+  v8Profiler.startProfiling(title, true)
+
+  afterAll(() => {
+    const profile = v8Profiler.stopProfiling(title)
+    profile.export(function (error, result: any) {
+      fs.writeFileSync(`${title}.cpuprofile`, result)
+      profile.delete()
+    })
+  })
+
 
   beforeEach(async () => {
     setup()

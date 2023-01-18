@@ -2,7 +2,25 @@ import { Key, KeyAlgs } from 'aries-askar-test-shared'
 
 import { setup } from './utils'
 
+import v8Profiler from 'v8-profiler-next'
+import fs from 'fs'
+
+v8Profiler.setGenerateType(1)
+const title = 'keys-test'
+
 describe('keys', () => {
+
+  v8Profiler.startProfiling(title, true)
+
+  afterAll(() => {
+    const profile = v8Profiler.stopProfiling(title)
+    profile.export(function (error, result: any) {
+      fs.writeFileSync(`${title}.cpuprofile`, result)
+      profile.delete()
+    })
+  })
+
+
   beforeAll(() => setup())
   test('aes cbc hmac', () => {
     const key = Key.generate(KeyAlgs.AesA128CbcHs256)
