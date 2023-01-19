@@ -1,6 +1,6 @@
 {
   "name": "aries-askar-test-react-native",
-  "version": "0.1.0-dev.3",
+  "version": "0.1.0-dev.4",
   "license": "Apache-2.0",
   "description": "React Native wrapper for Aries Askar",
   "main": "build/index",
@@ -39,7 +39,7 @@
     "compile": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
-    "aries-askar-test-shared": "0.1.0-dev.3"
+    "aries-askar-test-shared": "0.1.0-dev.4"
   },
   "devDependencies": {
     "@types/react": "^16.9.19",
