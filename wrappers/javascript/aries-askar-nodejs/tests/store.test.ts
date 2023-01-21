@@ -1,6 +1,5 @@
 import { Store, StoreKeyMethod, Key, KeyAlgs, AriesAskarError } from 'aries-askar-test-shared'
-import { access, promises } from 'fs'
-import { dirname } from 'path'
+import { promises } from 'fs'
 
 import { firstEntry, getRawKey, secondEntry, setup, setupWallet, testStoreUri } from './utils'
 
